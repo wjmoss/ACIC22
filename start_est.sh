@@ -25,5 +25,6 @@ done
 
 st=3001
 end=3400
+fnm="./log/$start-$end.out"
 OMP_NUM_THREADS=1 nohup nice python3 est.py $start $end 2>&1 | tee $fnm &
 echo "OMP_NUM_THREADS=1 nohup nice python3 est.py $start $end 2>&1 | tee $fnm &"
