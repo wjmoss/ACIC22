@@ -115,7 +115,7 @@ def estimate(i, k, S):
         for train_index, test_index in indices:    
             tr = df['Z'].iloc[train_index]
             xx = df[XV].iloc[train_index]
-            yy = df['Y'].iloc[train_index]
+            yy = df['outcome'].iloc[train_index]
             mean_m.fit(X=xx, y=yy)    
             df.loc[test_index, 'g0'] = mean_m.predict(df[XV].iloc[test_index])       
         #print(df['g0'])
@@ -128,7 +128,7 @@ def estimate(i, k, S):
         # all, year 3, year 4
         #df = df[2 * df['Z'] * df['ps'] - df['Z'] -df['ps'] + 1 > 0.1]
 
-        psi = df['Z'] * (df['Y'] - df['g0']) - df['ps'] / (1 - df['ps']) * (1 - df['Z']) * (df['Y'] - df['g0'])
+        psi = df['Z'] * (df['outcome'] - df['g0']) - df['ps'] / (1 - df['ps']) * (1 - df['Z']) * (df['outcome'] - df['g0'])
         
 
         tau = np.average(psi) / np.average(df['Z'])
@@ -161,7 +161,7 @@ def estimate(i, k, S):
                 #df_var['ps'] = df_var['ps'] / sum(df_var['ps']) * 2
                 
                 # mean
-                score = df_var['Z'] * (df_var['Y'] - df_var['g0']) - df_var['ps'] / (1 - df_var['ps']) * (1 - df_var['Z']) * (df_var['Y'] - df_var['g0'])
+                score = df_var['Z'] * (df_var['outcome'] - df_var['g0']) - df_var['ps'] / (1 - df_var['ps']) * (1 - df_var['Z']) * (df_var['outcome'] - df_var['g0'])
                 tau = np.average(score) / np.average(df_var['Z'])
                 
                 # variance
